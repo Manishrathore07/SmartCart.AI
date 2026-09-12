@@ -1,0 +1,143 @@
+{
+  "searches": [
+    {
+      "query": "wireless earbuds under 2000",
+      "timestamp": "2026-09-11T22:39:34.208584",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 499.0
+    },
+    {
+      "query": "wireless earbuds under 2000",
+      "timestamp": "2026-09-12T00:27:00.728020",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 1999.0
+    },
+    {
+      "query": "wireless earbuds under 2000",
+      "timestamp": "2026-09-12T00:32:11.942289",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 1999.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T00:56:35.287758",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 499.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T00:56:41.446913",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T00:57:19.449147",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T00:58:27.267522",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T01:00:29.315945",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T01:05:17.466536",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "speaker under 1000",
+      "timestamp": "2026-09-12T01:20:07.130183",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 599.0
+    },
+    {
+      "query": "best foods to eat",
+      "timestamp": "2026-09-12T01:31:42.524141",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 285.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T11:48:16.436062",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T14:36:17.988267",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 259.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T14:42:26.951288",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 259.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T14:49:33.514669",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 259.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T14:54:06.439091",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 259.0
+    },
+    {
+      "query": "noise cancelling headphones under 3000",
+      "timestamp": "2026-09-12T14:54:48.252815",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 1099.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T14:55:22.401363",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 259.0
+    },
+    {
+      "query": "best marvel shirts",
+      "timestamp": "2026-09-12T15:09:29.805729",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 549.0
+    }
+  ],
+  "learned_workflows": {},
+  "price_history": {},
+  "stats": {
+    "total_searches": 19,
+    "money_saved": 7564.0
+  }
+}
