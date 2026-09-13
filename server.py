@@ -180,6 +180,6 @@ if __name__ == "__main__":
     import uvicorn
     print("=" * 60)
     print("[SMARTCART] Localhost Web Server Starting...")
-    print("   Open your browser at: http://localhost:8080")
+    print("   Open your browser at: http://localhost:3000")
     print("=" * 60)
-    uvicorn.run(app, host="127.0.0.1", port=8080)
+    uvicorn.run(app, host="127.0.0.1", port=3000)
