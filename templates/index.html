@@ -118,6 +118,176 @@
     }
 
     /* ========================================================
+       JITTER TEMPLATE: Gradients Haze (Dynamic Liquid Aura)
+       ======================================================== */
+    .jitter-haze-background {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .haze-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+    .haze-blob-1 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 50%, transparent 70%);
+      top: -15%;
+      left: 10%;
+      animation: hazeMotion1 20s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+    .haze-blob-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #ec4899 0%, #a855f7 50%, transparent 70%);
+      bottom: -10%;
+      right: 5%;
+      animation: hazeMotion2 24s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+    .haze-blob-3 {
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, #06b6d4 0%, #6366f1 50%, transparent 70%);
+      top: 35%;
+      left: 30%;
+      animation: hazeMotion3 18s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+
+    @keyframes hazeMotion1 {
+      0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate3d(120px, 80px, 0) scale(1.2) rotate(60deg); }
+      100% { transform: translate3d(-80px, 140px, 0) scale(0.9) rotate(120deg); }
+    }
+    @keyframes hazeMotion2 {
+      0% { transform: translate3d(0, 0, 0) scale(1.1) rotate(0deg); }
+      50% { transform: translate3d(-140px, -90px, 0) scale(0.85) rotate(-90deg); }
+      100% { transform: translate3d(90px, -60px, 0) scale(1.15) rotate(-180deg); }
+    }
+    @keyframes hazeMotion3 {
+      0% { transform: translate3d(0, 0, 0) scale(0.9) rotate(0deg); }
+      50% { transform: translate3d(-90px, 60px, 0) scale(1.3) rotate(45deg); }
+      100% { transform: translate3d(110px, -70px, 0) scale(1) rotate(-60deg); }
+    }
+
+    /* ========================================================
+       JITTER TEMPLATE: Motion Blur Kinetic Text
+       ======================================================== */
+    .jitter-motion-blur-text {
+      display: inline-block;
+      animation: jitterMotionBlurIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      will-change: transform, filter, opacity;
+    }
+    @keyframes jitterMotionBlurIn {
+      0% {
+        opacity: 0;
+        transform: translateY(28px) scale(0.96) skewX(-6deg);
+        filter: blur(14px);
+      }
+      60% {
+        opacity: 0.9;
+        filter: blur(3px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) skewX(0deg);
+        filter: blur(0px);
+      }
+    }
+
+    .jitter-motion-blur-sub {
+      animation: jitterMotionBlurSub 1.4s 0.2s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    }
+    @keyframes jitterMotionBlurSub {
+      0% {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
+    }
+
+    /* ========================================================
+       JITTER TEMPLATE: Interactive "View Cart" Kinetic Button
+       ======================================================== */
+    .jitter-view-cart-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .jitter-view-cart-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 36px -4px rgba(16, 185, 129, 0.7), 0 0 25px rgba(52, 211, 153, 0.5);
+    }
+    .jitter-view-cart-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+    .jitter-cart-icon-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .jitter-view-cart-btn:hover .jitter-cart-icon-wrapper {
+      transform: scale(1.25) rotate(-12deg);
+    }
+    .jitter-view-cart-badge {
+      position: absolute;
+      top: -7px;
+      right: -10px;
+      background: #F43F5E;
+      color: white;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      border: 1.5px solid #064e3b;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      animation: badgePop 1.8s infinite;
+    }
+    @keyframes badgePop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .jitter-cart-shimmer {
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.75s ease;
+    }
+    .jitter-view-cart-btn:hover .jitter-cart-shimmer {
+      left: 140%;
+    }
+
+    /* ========================================================
        JITTER TEMPLATE 1: Animated Expanding Search Bar
        ======================================================== */
     .jitter-search-wrapper {
@@ -361,57 +531,66 @@
   </header>
 
   <!-- Main Body -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
     
-    <!-- Hero Section -->
-    <div class="text-center max-w-3xl mx-auto mb-10 pt-2">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/50 text-purple-300 text-xs font-medium mb-4">
-        <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
-        <span>Cross-Platform Comparison • Amazon India & Flipkart</span>
+    <!-- Hero Section (Jitter Gradients: Haze & Motion Blur Kinetic Text) -->
+    <div class="text-center max-w-3xl mx-auto mb-10 pt-2 relative">
+      <!-- Jitter Gradients: Haze Fluid Mesh Background -->
+      <div class="jitter-haze-background">
+        <div class="haze-blob haze-blob-1"></div>
+        <div class="haze-blob haze-blob-2"></div>
+        <div class="haze-blob haze-blob-3"></div>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-        Find Lowest Prices. <br><span class="gradient-text">Let AI Buy Smarter.</span>
-      </h1>
-      <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
-        Give the agent what you are looking for. It parses your intent with Gemini, scrapes real-time deals, picks the highest-value winner, and opens the live browser window on your screen for human approval.
-      </p>
 
-      <!-- Search Input Container -->
-      <!-- Search Input Container (Jitter Animated Search Bar & Interactive Trace Button) -->
-      <div class="mt-8 max-w-2xl mx-auto jitter-search-wrapper">
-        <form id="search-form" class="relative">
-          <div class="jitter-search-container flex items-center">
-            <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center mr-3 flex-shrink-0 text-purple-400">
-              <i data-lucide="search" class="w-4 h-4"></i>
+      <div class="relative z-10">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/50 text-purple-300 text-xs font-medium mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+          <span>Cross-Platform Comparison • Amazon India & Flipkart</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+          <span class="jitter-motion-blur-text">Find Lowest Prices.</span> <br>
+          <span class="gradient-text jitter-motion-blur-text" style="animation-delay: 0.2s;">Let AI Buy Smarter.</span>
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed jitter-motion-blur-sub">
+          Give the agent what you are looking for. It parses your intent with Gemini, scrapes real-time deals, picks the highest-value winner, and opens the live browser window on your screen for human approval.
+        </p>
+
+        <!-- Search Input Container (Jitter Animated Search Bar & Interactive Trace Button) -->
+        <div class="mt-8 max-w-2xl mx-auto jitter-search-wrapper">
+          <form id="search-form" class="relative">
+            <div class="jitter-search-container flex items-center">
+              <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center mr-3 flex-shrink-0 text-purple-400">
+                <i data-lucide="search" class="w-4 h-4"></i>
+              </div>
+              <input 
+                id="query-input" 
+                type="text" 
+                placeholder="e.g. wireless mouse under 1000, running shoes, ANC headphones..." 
+                value="wireless mouse under 1000"
+                class="w-full bg-transparent border-none outline-none text-white text-sm sm:text-base placeholder-slate-500 pr-3 font-medium"
+                required
+              />
+              <button 
+                type="submit" 
+                id="submit-btn"
+                class="jitter-trace-btn flex items-center space-x-2 flex-shrink-0"
+              >
+                <div class="trace-ring"></div>
+                <span class="relative z-10 text-xs sm:text-sm font-bold">Run Agent</span>
+                <i data-lucide="sparkles" class="w-4 h-4 relative z-10 text-amber-300 animate-pulse"></i>
+              </button>
             </div>
-            <input 
-              id="query-input" 
-              type="text" 
-              placeholder="e.g. wireless mouse under 1000, running shoes, ANC headphones..." 
-              value="wireless mouse under 1000"
-              class="w-full bg-transparent border-none outline-none text-white text-sm sm:text-base placeholder-slate-500 pr-3 font-medium"
-              required
-            />
-            <button 
-              type="submit" 
-              id="submit-btn"
-              class="jitter-trace-btn flex items-center space-x-2 flex-shrink-0"
-            >
-              <div class="trace-ring"></div>
-              <span class="relative z-10 text-xs sm:text-sm font-bold">Run Agent</span>
-              <i data-lucide="sparkles" class="w-4 h-4 relative z-10 text-amber-300 animate-pulse"></i>
-            </button>
-          </div>
-          <div class="jitter-search-glow"></div>
-        </form>
+            <div class="jitter-search-glow"></div>
+          </form>
 
-        <!-- Quick Prompts Chips -->
-        <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
-          <span class="text-slate-500">Try asking:</span>
-          <button type="button" onclick="setQuery('wireless mouse under 1000')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">Wireless mouse under 1000</button>
-          <button type="button" onclick="setQuery('noise cancelling headphones under 3000')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">ANC Headphones under 3000</button>
-          <button type="button" onclick="setQuery('mechanical gaming keyboard')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">Mechanical Keyboard</button>
-          <button type="button" onclick="setQuery('running shoes under 2000')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">Running Shoes</button>
+          <!-- Quick Prompts Chips -->
+          <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
+            <span class="text-slate-500">Try asking:</span>
+            <button type="button" onclick="setQuery('wireless mouse under 1000')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">Wireless mouse under 1000</button>
+            <button type="button" onclick="setQuery('noise cancelling headphones under 3000')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">ANC Headphones under 3000</button>
+            <button type="button" onclick="setQuery('mechanical gaming keyboard')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">Mechanical Keyboard</button>
+            <button type="button" onclick="setQuery('running shoes under 2000')" class="chip px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 border border-slate-700/60 text-slate-300 transition">Running Shoes</button>
+          </div>
         </div>
       </div>
     </div>
@@ -433,14 +612,6 @@
           Step 1 of 4
         </div>
       </div>
-
-      <div class="grid grid-cols-4 gap-2 pt-2 border-t border-slate-800 text-[11px] font-medium text-slate-400">
-        <div id="step-1" class="flex items-center space-x-1 text-purple-400"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>1. Intent</span></div>
-        <div id="step-2" class="flex items-center space-x-1"><i data-lucide="circle" class="w-3.5 h-3.5"></i><span>2. Scrape</span></div>
-        <div id="step-3" class="flex items-center space-x-1"><i data-lucide="circle" class="w-3.5 h-3.5"></i><span>3. Reasoning</span></div>
-        <div id="step-4" class="flex items-center space-x-1"><i data-lucide="circle" class="w-3.5 h-3.5"></i><span>4. Browser Gate</span></div>
-      </div>
-    </div>
 
     <!-- Error Alert Box -->
     <div id="error-box" class="hidden max-w-2xl mx-auto mb-8 p-4 rounded-xl bg-red-950/50 border border-red-800 text-red-300 text-sm flex items-start space-x-3">
@@ -585,16 +756,21 @@
               </p>
             </div>
 
+            <!-- Jitter Template: View Cart Kinetic Button -->
             <a 
               id="launch-browser-btn"
               href="#"
               target="_blank"
               rel="noopener noreferrer"
               onclick="launchBrowserWinner(event)"
-              class="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-emerald-600/30 flex items-center justify-center space-x-2 transition-all duration-200 transform hover:-translate-y-0.5 cursor-pointer text-center"
+              class="jitter-view-cart-btn w-full"
             >
-              <i data-lucide="external-link" class="w-4 h-4"></i>
-              <span>Launch Live Browser Window</span>
+              <div class="jitter-cart-icon-wrapper">
+                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                <span class="jitter-view-cart-badge">1</span>
+              </div>
+              <span class="relative z-10 font-bold tracking-wide">Launch Live Browser Window</span>
+              <div class="jitter-cart-shimmer"></div>
             </a>
             <div id="launch-notification" class="hidden text-center text-xs text-emerald-400 font-medium">
               Browser tab opened! Check your browser.

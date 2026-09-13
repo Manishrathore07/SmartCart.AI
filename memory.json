@@ -258,13 +258,27 @@
       "total_products_found": 5,
       "winner_site": "amazon",
       "winner_price": 259.0
+    },
+    {
+      "query": "best laptop under 50000",
+      "timestamp": "2026-09-14T00:59:43.721280",
+      "total_products_found": 1,
+      "winner_site": "amazon",
+      "winner_price": 47990.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-14T01:03:26.053621",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 259.0
     }
   ],
   "learned_workflows": {},
   "price_history": {},
   "stats": {
-    "total_searches": 37,
-    "money_saved": 470347.0
+    "total_searches": 39,
+    "money_saved": 470762.0
   },
   "watchlist": [
     {
