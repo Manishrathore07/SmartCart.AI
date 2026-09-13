@@ -118,65 +118,6 @@
     }
 
     /* ========================================================
-       JITTER TEMPLATE: Gradients Haze (Dynamic Liquid Aura)
-       ======================================================== */
-    .jitter-haze-background {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .haze-blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.45;
-      mix-blend-mode: screen;
-      will-change: transform;
-    }
-    .haze-blob-1 {
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 50%, transparent 70%);
-      top: -15%;
-      left: 10%;
-      animation: hazeMotion1 20s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-    }
-    .haze-blob-2 {
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, #ec4899 0%, #a855f7 50%, transparent 70%);
-      bottom: -10%;
-      right: 5%;
-      animation: hazeMotion2 24s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-    }
-    .haze-blob-3 {
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, #06b6d4 0%, #6366f1 50%, transparent 70%);
-      top: 35%;
-      left: 30%;
-      animation: hazeMotion3 18s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-    }
-
-    @keyframes hazeMotion1 {
-      0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-      50% { transform: translate3d(120px, 80px, 0) scale(1.2) rotate(60deg); }
-      100% { transform: translate3d(-80px, 140px, 0) scale(0.9) rotate(120deg); }
-    }
-    @keyframes hazeMotion2 {
-      0% { transform: translate3d(0, 0, 0) scale(1.1) rotate(0deg); }
-      50% { transform: translate3d(-140px, -90px, 0) scale(0.85) rotate(-90deg); }
-      100% { transform: translate3d(90px, -60px, 0) scale(1.15) rotate(-180deg); }
-    }
-    @keyframes hazeMotion3 {
-      0% { transform: translate3d(0, 0, 0) scale(0.9) rotate(0deg); }
-      50% { transform: translate3d(-90px, 60px, 0) scale(1.3) rotate(45deg); }
-      100% { transform: translate3d(110px, -70px, 0) scale(1) rotate(-60deg); }
-    }
-
-    /* ========================================================
        JITTER TEMPLATE: Motion Blur Kinetic Text
        ======================================================== */
     .jitter-motion-blur-text {
@@ -533,15 +474,8 @@
   <!-- Main Body -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
     
-    <!-- Hero Section (Jitter Gradients: Haze & Motion Blur Kinetic Text) -->
+    <!-- Hero Section -->
     <div class="text-center max-w-3xl mx-auto mb-10 pt-2 relative">
-      <!-- Jitter Gradients: Haze Fluid Mesh Background -->
-      <div class="jitter-haze-background">
-        <div class="haze-blob haze-blob-1"></div>
-        <div class="haze-blob haze-blob-2"></div>
-        <div class="haze-blob haze-blob-3"></div>
-      </div>
-
       <div class="relative z-10">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/50 text-purple-300 text-xs font-medium mb-4">
           <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
