@@ -181,12 +181,81 @@
       "total_products_found": 5,
       "winner_site": "amazon",
       "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-13T09:58:15.023682",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 1499.0
+    },
+    {
+      "query": "wireless mouse under 2000",
+      "timestamp": "2026-09-13T09:59:22.792839",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 1499.0
+    },
+    {
+      "query": "keyboard  mouse under 2000",
+      "timestamp": "2026-09-13T10:03:03.392297",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 399.0
+    },
+    {
+      "query": "keyboard  mouse under 2000",
+      "timestamp": "2026-09-13T10:04:34.996361",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 399.0
+    },
+    {
+      "query": "keyboard  under 2000",
+      "timestamp": "2026-09-13T10:05:18.913982",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 279.0
+    },
+    {
+      "query": "best laptop",
+      "timestamp": "2026-09-13T10:32:10.015491",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 60490.0
+    },
+    {
+      "query": "wireless mouse under 1000 flipkart",
+      "timestamp": "2026-09-13T10:47:16.259561",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 1499.0
     }
   ],
   "learned_workflows": {},
   "price_history": {},
   "stats": {
-    "total_searches": 26,
-    "money_saved": 10529.0
-  }
+    "total_searches": 33,
+    "money_saved": 469437.0
+  },
+  "watchlist": [
+    {
+      "title": "Dell 15 (Previously Inspiron) Laptop, 14th Gen Intel Core i3/Core 3 100U Processor, 16GB DDR4, 512 S",
+      "price": 60490,
+      "target_price": 54441.0,
+      "site": "amazon",
+      "url": "https://www.amazon.in/Dell-Previously-Inspiron-Processor-Graphics/dp/B0GV1L119H/ref=sr_1_4?dib=eyJ2IjoiMSJ9.o9T9fy84StR7WI5vI0bb3PpPWLs70fQA4tUOHjPgGFuPSw_MtSyFsSFh4OaLbQknM7g8eROMy_4g0XNnnQkr5W5ICXLB9MFYC6BZjAN5xJ7f2zogZ9bIMqO9N52qOzzezrNHzlq899xNvH7--FTTxWr2jVQs8A9jHPt_ecDAn5y3V1treaMfBrf5iDepPFCf3PdHrt9Y5eSU4IFxHoxeUfE_V9dMI9NzBTgDR5NplnA.Ghruvy2TltOOf_JnPlGiyQe_RnaHfNMV8F8PeLM1i4Y&dib_tag=se&keywords=best+laptop&qid=1789275718&sr=8-4",
+      "rating": 4,
+      "added_at": "2026-09-13T10:46:39.143766"
+    },
+    {
+      "title": "Zebronics Wired Keyboard and Mouse Combo with 104 Keys and a USB Mouse with 1200 DPI -JUDWAA 750",
+      "price": 399,
+      "target_price": 359.0,
+      "site": "amazon",
+      "url": "https://www.amazon.in/Zebronics-Zeb-JUDWAA-750-Wired-Keyboard/dp/B07KR5P3YD/ref=sr_1_3?dib=eyJ2IjoiMSJ9.wYZqiobq0CmxZS8sQ2wKhzJxBczsnv3sNLNRIIni7XYgsj2b8Fk_AFZWMXD55KHPMK4qpPK3u0Kh8CvDy0i6mUyBvJOkEflz_hujF_gAbpZLACkHAqVogkzIwDXpwJUzoRb5sR2VUaQgLQErgvERUP0odOHBDsskHHwg6oRKHmKZewp9UPLcjC5_X6_mmdwtuwHE7KePKzklGBKtdTiumMIPWE3xl7MscUZ1J-czAnw.9z7T5p4YH3Hq3MkeJBae8OxyDVEkLjkEP_pT9w76EH8&dib_tag=se&keywords=keyboard+mouse&qid=1789273964&sr=8-3",
+      "rating": 3.8,
+      "added_at": "2026-09-13T10:03:24.444256"
+    }
+  ]
 }
