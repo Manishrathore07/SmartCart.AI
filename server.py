@@ -182,4 +182,4 @@ if __name__ == "__main__":
     print("[SMARTCART] Localhost Web Server Starting...")
     print("   Open your browser at: http://localhost:3000")
     print("=" * 60)
-    uvicorn.run(app, host="127.0.0.1", port=3000)
+    uvicorn.run(app, host="0.0.0.0", port=3000)
