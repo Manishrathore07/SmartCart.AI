@@ -272,13 +272,20 @@
       "total_products_found": 4,
       "winner_site": "amazon",
       "winner_price": 259.0
+    },
+    {
+      "query": "keybord under 1000",
+      "timestamp": "2026-09-14T02:09:58.907196",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 595.0
     }
   ],
   "learned_workflows": {},
   "price_history": {},
   "stats": {
-    "total_searches": 39,
-    "money_saved": 470762.0
+    "total_searches": 40,
+    "money_saved": 470766.0
   },
   "watchlist": [
     {

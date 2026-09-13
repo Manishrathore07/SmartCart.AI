@@ -116,14 +116,13 @@ def api_search(req: SearchRequest):
         filtered = [p for p in products if p.get("price", 999999) <= max_price]
         if filtered:
             products = filtered
+        else:
+            # If no items strictly under budget, pick items closest to budget
+            products.sort(key=lambda p: abs(p.get("price", 999999) - max_price))
 
     if not products:
-        return {
-            "success": False,
-            "message": "No products found. Please try another query.",
-            "query_info": query_info,
-            "products": []
-        }
+        # Ultimate fallback guarantee
+        products = search_all(query, max_per_site=3)
 
     # 3. Deal Analysis
     winner = pick_best_deal(products, query)
