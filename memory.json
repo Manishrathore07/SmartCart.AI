@@ -132,12 +132,61 @@
       "total_products_found": 5,
       "winner_site": "amazon",
       "winner_price": 549.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T16:40:21.431279",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T16:40:43.764757",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T16:47:17.401174",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T16:49:53.696845",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T16:57:50.665504",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-12T17:05:29.403822",
+      "total_products_found": 3,
+      "winner_site": "amazon",
+      "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-13T01:37:18.991491",
+      "total_products_found": 5,
+      "winner_site": "amazon",
+      "winner_price": 229.0
     }
   ],
   "learned_workflows": {},
   "price_history": {},
   "stats": {
-    "total_searches": 19,
-    "money_saved": 7564.0
+    "total_searches": 26,
+    "money_saved": 10529.0
   }
 }

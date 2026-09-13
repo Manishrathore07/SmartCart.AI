@@ -99,6 +99,33 @@ def track_price(product_title: str, site: str, price: float):
     save_memory(memory)
 
 
+def add_to_watchlist(product: dict, target_price: float = None) -> dict:
+    """Save a product to watchlist for price tracking."""
+    memory = load_memory()
+    if "watchlist" not in memory:
+        memory["watchlist"] = []
+    
+    item = {
+        "title": product.get("title", "Product"),
+        "price": product.get("price", 0),
+        "target_price": target_price or round(product.get("price", 0) * 0.9, 0),
+        "site": product.get("site", "amazon"),
+        "url": product.get("url", ""),
+        "rating": product.get("rating", 4.0),
+        "added_at": datetime.now().isoformat()
+    }
+    memory["watchlist"] = [w for w in memory["watchlist"] if w.get("title") != item["title"]]
+    memory["watchlist"].insert(0, item)
+    save_memory(memory)
+    return item
+
+
+def get_watchlist() -> list:
+    """Return all items currently in watchlist."""
+    memory = load_memory()
+    return memory.get("watchlist", [])
+
+
 def get_stats() -> dict:
     """Get overall stats for the stats panel."""
     memory = load_memory()
@@ -106,7 +133,8 @@ def get_stats() -> dict:
         "total_searches": memory["stats"]["total_searches"],
         "money_saved": round(memory["stats"]["money_saved"], 2),
         "learned_sites": list(memory.get("learned_workflows", {}).keys()),
-        "recent_searches": memory["searches"][-5:][::-1]
+        "recent_searches": memory["searches"][-5:][::-1],
+        "watchlist_count": len(memory.get("watchlist", []))
     }
 
 

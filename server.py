@@ -13,9 +13,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from brain import understand_query, pick_best_deal, summarize_comparison
+from brain import understand_query, pick_best_deal, summarize_comparison, ask_about_deal
 from scraper import search_all
-from memory import remember_search, get_stats
+from memory import remember_search, get_stats, add_to_watchlist, get_watchlist
 from webcmd_adapter import WebcmdClient
 
 app = FastAPI(title="SmartCart AI Browser Agent")
@@ -41,11 +41,43 @@ class LaunchRequest(BaseModel):
     title: Optional[str] = "Product"
 
 
+class AskRequest(BaseModel):
+    product: dict
+    question: str
+
+
+class WatchlistRequest(BaseModel):
+    product: dict
+    target_price: Optional[float] = None
+
+
 @app.get("/api/stats")
 def api_stats():
     stats = get_stats()
     stats["webcmd_connected"] = webcmd.is_available()
     return stats
+
+
+@app.post("/api/ask")
+def api_ask(req: AskRequest):
+    answer = ask_about_deal(req.product, req.question)
+    return {"success": True, "answer": answer}
+
+
+@app.post("/api/watchlist")
+def api_add_watchlist(req: WatchlistRequest):
+    item = add_to_watchlist(req.product, req.target_price)
+    return {
+        "success": True, 
+        "item": item, 
+        "message": f"Added to watchlist at target price Rs. {item['target_price']:,.0f}"
+    }
+
+
+@app.get("/api/watchlist")
+def api_get_watchlist():
+    items = get_watchlist()
+    return {"success": True, "watchlist": items}
 
 
 @app.post("/api/launch")
@@ -97,6 +129,23 @@ def api_search(req: SearchRequest):
     winner = pick_best_deal(products, query)
     summary = summarize_comparison(products, winner)
 
+    # 3.5 Head-to-Head Battle (Amazon vs. Flipkart)
+    amazon_items = [p for p in products if p.get("site", "").lower() == "amazon"]
+    flipkart_items = [p for p in products if p.get("site", "").lower() == "flipkart"]
+    battle = None
+    if amazon_items and flipkart_items:
+        amz = amazon_items[0]
+        flp = flipkart_items[0]
+        diff = abs(amz.get("price", 0) - flp.get("price", 0))
+        cheaper = "Amazon" if amz.get("price", 0) < flp.get("price", 0) else "Flipkart"
+        battle = {
+            "amazon": amz,
+            "flipkart": flp,
+            "price_diff": diff,
+            "cheaper_store": cheaper,
+            "verdict": f"{cheaper} is Rs. {diff:,.0f} cheaper!" if diff > 0 else "Both stores offer identical prices!"
+        }
+
     # 4. Save to persistent memory
     remember_search(query, products, winner)
     stats = get_stats()
@@ -113,6 +162,7 @@ def api_search(req: SearchRequest):
         "products": products,
         "winner": winner,
         "summary": summary,
+        "battle": battle,
         "stats": stats
     }
 

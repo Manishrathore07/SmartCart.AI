@@ -299,6 +299,30 @@ Keep it under 100 words. No markdown, plain text.
 
 
 
+def ask_about_deal(product: dict, question: str) -> str:
+    """Ask Gemini an instant shopping question about a specific product deal."""
+    prompt = f"""
+You are an expert, honest shopping advisor.
+A user is looking at this product:
+Title: {product.get('title', 'Unknown')}
+Price: Rs. {product.get('price', 0)}
+Original Price: Rs. {product.get('original_price', 0)}
+Rating: {product.get('rating', 0)} stars ({product.get('review_count', 0)} reviews)
+Store: {product.get('site', 'Online Store')}
+
+The user asks: "{question}"
+
+Answer concisely in 2-3 sentences. Be practical, direct, and helpful. No markdown formatting, plain text only.
+"""
+    try:
+        res = _call_gemini_api(prompt).strip()
+        if res and res != "{}":
+            return res
+    except Exception:
+        pass
+    return f"Based on the product details and {product.get('rating', 4.0)} rating, this item provides good value at Rs. {product.get('price', 0):,}. Be sure to verify seller warranty before purchasing."
+
+
 if __name__ == "__main__":
     # Quick test
     result = understand_query("I want wireless earbuds under 2000 rupees")

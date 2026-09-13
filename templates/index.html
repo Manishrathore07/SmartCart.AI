@@ -66,16 +66,20 @@
       </div>
 
       <!-- Header Badges & Memory Stats -->
-      <div class="flex items-center space-x-3 sm:space-x-4 text-xs font-medium">
-        <div class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+      <div class="flex items-center space-x-2 sm:space-x-3 text-xs font-medium">
+        <div class="hidden sm:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span>Webcmd Ready</span>
         </div>
-        <div class="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">
+        <div class="hidden md:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
           <span>Gemini 3.6 Flash</span>
         </div>
-        <div class="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300">
+        <button onclick="toggleWatchlistModal()" class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-purple-300 transition">
+          <i data-lucide="bell" class="w-3.5 h-3.5 text-purple-400"></i>
+          <span>Watchlist (<span id="header-watchlist-count">0</span>)</span>
+        </button>
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300">
           <i data-lucide="piggy-bank" class="w-3.5 h-3.5 text-amber-400"></i>
           <span>Saved: <strong id="header-saved" class="text-amber-300">Rs. 0</strong></span>
         </div>
@@ -87,7 +91,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
     
     <!-- Hero Section -->
-    <div class="text-center max-w-3xl mx-auto mb-10 pt-4">
+    <div class="text-center max-w-3xl mx-auto mb-10 pt-2">
       <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/50 text-purple-300 text-xs font-medium mb-4">
         <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
         <span>Cross-Platform Comparison • Amazon India & Flipkart</span>
@@ -197,7 +201,9 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
           <div class="lg:col-span-2 space-y-4">
-            <h2 id="winner-title" class="text-xl sm:text-2xl font-bold text-white leading-snug">Product Title</h2>
+            <a id="winner-title-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-purple-300 transition block">
+              <h2 id="winner-title" class="text-xl sm:text-2xl font-bold text-white leading-snug">Product Title</h2>
+            </a>
             
             <div class="flex flex-wrap items-center gap-4 text-xs text-slate-300">
               <div class="flex items-center space-x-1 text-amber-400">
@@ -228,6 +234,66 @@
               <i data-lucide="info" class="w-4 h-4 flex-shrink-0"></i>
               <span id="winner-warning-text"></span>
             </div>
+
+            <!-- Interactive Ask Gemini Box & Watchlist Trigger -->
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <button 
+                onclick="toggleAskDrawer()" 
+                class="px-3 py-2 rounded-lg bg-purple-900/50 hover:bg-purple-800/60 border border-purple-600/40 text-xs font-semibold text-purple-200 transition flex items-center space-x-1.5"
+              >
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-300"></i>
+                <span>Ask Gemini About This Deal</span>
+              </button>
+
+              <button 
+                id="track-price-btn"
+                onclick="addCurrentToWatchlist()" 
+                class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-300 transition flex items-center space-x-1.5"
+              >
+                <i data-lucide="bell" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span id="track-btn-text">Track Price (Watchlist)</span>
+              </button>
+            </div>
+
+            <!-- Ask Gemini Drawer (Hidden by default) -->
+            <div id="ask-drawer" class="hidden p-4 rounded-xl bg-slate-900/90 border border-purple-500/30 space-y-3 mt-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2 text-xs font-bold text-purple-300">
+                  <i data-lucide="bot" class="w-4 h-4"></i>
+                  <span>Ask Gemini Shopping Concierge</span>
+                </div>
+                <button onclick="toggleAskDrawer()" class="text-slate-500 hover:text-slate-300"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+              </div>
+
+              <!-- Question quick chips -->
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <button onclick="askPreset('Is this product durable and long-lasting?')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-purple-900/40 border border-slate-700 text-slate-300">Is it durable?</button>
+                <button onclick="askPreset('What are the main pros and cons of this item?')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-purple-900/40 border border-slate-700 text-slate-300">Pros & Cons</button>
+                <button onclick="askPreset('Is it comfortable for daily work/studies?')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-purple-900/40 border border-slate-700 text-slate-300">Comfort for studies?</button>
+              </div>
+
+              <div class="flex gap-2">
+                <input 
+                  id="ask-input" 
+                  type="text" 
+                  placeholder="e.g. Does it work with Mac/Windows? Is battery included?" 
+                  class="flex-1 bg-slate-950/80 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 outline-none focus:border-purple-500"
+                />
+                <button 
+                  onclick="submitAsk()" 
+                  id="ask-submit-btn"
+                  class="bg-purple-600 hover:bg-purple-500 text-white px-3 py-2 rounded-lg text-xs font-semibold flex items-center space-x-1"
+                >
+                  <span>Ask</span>
+                  <i data-lucide="send" class="w-3 h-3"></i>
+                </button>
+              </div>
+
+              <div id="ask-response-box" class="hidden p-3 rounded-lg bg-purple-950/30 border border-purple-900/50 text-xs text-slate-300 leading-relaxed">
+                <!-- Response will appear here -->
+              </div>
+            </div>
+
           </div>
 
           <!-- Live Action & Human Safeguard Box -->
@@ -260,15 +326,81 @@
         </div>
       </div>
 
-      <!-- Price Comparison Table & Grid -->
+      <!-- ⚔️ Head-to-Head Battle Section (Amazon vs Flipkart) -->
+      <div id="battle-section" class="hidden glass-card rounded-2xl p-5 sm:p-6 border border-slate-700">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-base font-extrabold text-white">⚔️ Head-to-Head Store Showdown</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Amazon vs Flipkart</span>
+          </div>
+          <div id="battle-verdict-badge" class="text-xs font-bold text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-800">
+            Comparing...
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+          <!-- Amazon Battle Card -->
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-amber-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">Amazon.in</span>
+                <span id="battle-amz-price" class="text-base font-black text-white">Rs. 0</span>
+              </div>
+              <h4 id="battle-amz-title" class="text-xs font-semibold text-slate-200 line-clamp-2 mb-2">Product Title</h4>
+              <div class="flex items-center space-x-2 text-[11px] text-slate-400 mb-3">
+                <span id="battle-amz-rating" class="text-amber-400 font-bold">★ 4.0</span>
+                <span>•</span>
+                <span class="text-emerald-400">Prime Verified</span>
+              </div>
+            </div>
+            <a id="battle-amz-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-slate-800 hover:bg-amber-600 hover:text-slate-950 rounded-lg text-center text-xs font-bold text-amber-300 transition">
+              View on Amazon
+            </a>
+          </div>
+
+          <!-- Flipkart Battle Card -->
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-blue-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">Flipkart</span>
+                <span id="battle-flp-price" class="text-base font-black text-white">Rs. 0</span>
+              </div>
+              <h4 id="battle-flp-title" class="text-xs font-semibold text-slate-200 line-clamp-2 mb-2">Product Title</h4>
+              <div class="flex items-center space-x-2 text-[11px] text-slate-400 mb-3">
+                <span id="battle-flp-rating" class="text-amber-400 font-bold">★ 4.0</span>
+                <span>•</span>
+                <span class="text-blue-400">Flipkart Assured</span>
+              </div>
+            </div>
+            <a id="battle-flp-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-slate-800 hover:bg-blue-600 hover:text-white rounded-lg text-center text-xs font-bold text-blue-300 transition">
+              View on Flipkart
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Comparison Table & Grid with Filters -->
       <div class="space-y-4">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
           <div>
             <h3 class="text-lg font-bold text-white">All Compared Options</h3>
             <p class="text-xs text-slate-400">Scraped real-time listings sorted by lowest total cost</p>
           </div>
-          <div class="text-xs text-slate-400">
-            Total deals found: <span id="total-found-count" class="font-bold text-white">0</span>
+
+          <!-- Filter & Sort Bar -->
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <div class="flex rounded-lg bg-slate-900 p-1 border border-slate-800">
+              <button onclick="setFilter('all')" id="filter-all" class="px-2.5 py-1 rounded-md font-semibold bg-purple-600 text-white transition">All</button>
+              <button onclick="setFilter('amazon')" id="filter-amazon" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition">Amazon</button>
+              <button onclick="setFilter('flipkart')" id="filter-flipkart" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition">Flipkart</button>
+              <button onclick="setFilter('rated')" id="filter-rated" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition">★ 4.0+</button>
+            </div>
+
+            <select id="sort-select" onchange="applySortAndFilter()" class="bg-slate-900 border border-slate-800 text-slate-300 rounded-lg px-2.5 py-1.5 text-xs outline-none focus:border-purple-500">
+              <option value="price_asc">Price: Low to High</option>
+              <option value="rating_desc">Highest Rated</option>
+              <option value="discount_desc">Biggest Discount</option>
+            </select>
           </div>
         </div>
 
@@ -281,8 +413,34 @@
 
   </main>
 
+  <!-- Watchlist Slide-over Modal -->
+  <div id="watchlist-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex justify-end">
+    <div class="w-full max-w-md bg-slate-900 border-l border-slate-800 h-full p-6 flex flex-col justify-between overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="bell" class="w-5 h-5 text-purple-400"></i>
+            <h3 class="text-base font-bold text-white">Your Price Watchlist</h3>
+          </div>
+          <button onclick="toggleWatchlistModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <p class="text-xs text-slate-400 mb-4">Products saved to your self-learning memory for persistent price tracking:</p>
+
+        <div id="watchlist-items-container" class="space-y-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 text-center">
+        <button onclick="toggleWatchlistModal()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-lg text-slate-300">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
-  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 glass-card">
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 glass-card mt-12">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
       <div>SmartCart AI Agent • Built for SLAB Hackathon</div>
       <div class="flex items-center space-x-4">
@@ -297,6 +455,9 @@
     let currentWinnerUrl = "";
     let currentWinnerSite = "amazon";
     let currentWinnerTitle = "";
+    let currentWinnerProduct = null;
+    let allLoadedProducts = [];
+    let currentFilter = "all";
 
     lucide.createIcons();
 
@@ -311,6 +472,9 @@
         const data = await res.json();
         if (data.money_saved) {
           document.getElementById('header-saved').innerText = `Rs. ${Math.round(data.money_saved).toLocaleString()}`;
+        }
+        if (typeof data.watchlist_count !== 'undefined') {
+          document.getElementById('header-watchlist-count').innerText = data.watchlist_count;
         }
       } catch (e) {
         console.error(e);
@@ -412,6 +576,7 @@
 
       const winner = data.winner;
       const wp = winner.winner_product || {};
+      currentWinnerProduct = wp;
 
       currentWinnerSite = wp.site || "amazon";
       currentWinnerTitle = wp.title || "Product";
@@ -420,6 +585,10 @@
       const launchBtn = document.getElementById('launch-browser-btn');
       if (launchBtn) {
         launchBtn.href = currentWinnerUrl;
+      }
+      const titleLink = document.getElementById('winner-title-link');
+      if (titleLink) {
+        titleLink.href = currentWinnerUrl;
       }
 
       document.getElementById('winner-title').innerText = wp.title || "Product Deal";
@@ -458,14 +627,86 @@
         warnBox.classList.add('hidden');
       }
 
+      // Render Head-to-Head Battle
+      const battleSection = document.getElementById('battle-section');
+      if (data.battle) {
+        battleSection.classList.remove('hidden');
+        const b = data.battle;
+        document.getElementById('battle-verdict-badge').innerText = b.verdict;
+        
+        // Amazon
+        document.getElementById('battle-amz-title').innerText = b.amazon.title;
+        document.getElementById('battle-amz-price').innerText = `Rs. ${Math.round(b.amazon.price).toLocaleString()}`;
+        document.getElementById('battle-amz-rating').innerText = `★ ${(b.amazon.rating || 4.0).toFixed(1)}`;
+        document.getElementById('battle-amz-btn').href = getValidUrl(b.amazon.url, 'amazon', b.amazon.title);
+
+        // Flipkart
+        document.getElementById('battle-flp-title').innerText = b.flipkart.title;
+        document.getElementById('battle-flp-price').innerText = `Rs. ${Math.round(b.flipkart.price).toLocaleString()}`;
+        document.getElementById('battle-flp-rating').innerText = `★ ${(b.flipkart.rating || 4.0).toFixed(1)}`;
+        document.getElementById('battle-flp-btn').href = getValidUrl(b.flipkart.url, 'flipkart', b.flipkart.title);
+      } else {
+        battleSection.classList.add('hidden');
+      }
+
+      // Store products for filtering
+      allLoadedProducts = data.products || [];
+      applySortAndFilter();
+
+      lucide.createIcons();
+    }
+
+    function setFilter(filterType) {
+      currentFilter = filterType;
+      const filters = ['all', 'amazon', 'flipkart', 'rated'];
+      filters.forEach(f => {
+        const btn = document.getElementById(`filter-${f}`);
+        if (f === filterType) {
+          btn.className = 'px-2.5 py-1 rounded-md font-semibold bg-purple-600 text-white transition';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition';
+        }
+      });
+      applySortAndFilter();
+    }
+
+    function applySortAndFilter() {
+      let filtered = [...allLoadedProducts];
+
+      // Filter
+      if (currentFilter === 'amazon') {
+        filtered = filtered.filter(p => (p.site || '').toLowerCase() === 'amazon');
+      } else if (currentFilter === 'flipkart') {
+        filtered = filtered.filter(p => (p.site || '').toLowerCase() === 'flipkart');
+      } else if (currentFilter === 'rated') {
+        filtered = filtered.filter(p => (p.rating || 0) >= 4.0);
+      }
+
+      // Sort
+      const sortBy = document.getElementById('sort-select').value;
+      if (sortBy === 'price_asc') {
+        filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+      } else if (sortBy === 'rating_desc') {
+        filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      } else if (sortBy === 'discount_desc') {
+        filtered.sort((a, b) => (b.discount_pct || 0) - (a.discount_pct || 0));
+      }
+
+      renderProductsGrid(filtered);
+    }
+
+    function renderProductsGrid(items) {
       const grid = document.getElementById('products-grid');
       grid.innerHTML = '';
-      document.getElementById('total-found-count').innerText = data.products.length;
 
-      data.products.forEach((p, idx) => {
-        const isWinner = (idx === winner.winner_index);
+      if (!items || items.length === 0) {
+        grid.innerHTML = '<div class="col-span-3 text-center py-6 text-slate-500 text-xs">No products match the selected filter.</div>';
+        return;
+      }
+
+      items.forEach((p) => {
         const card = document.createElement('div');
-        card.className = `glass-card rounded-xl p-4 flex flex-col justify-between transition-all hover:border-purple-500/50 ${isWinner ? 'border-purple-500/60 ring-1 ring-purple-500/50' : ''}`;
+        card.className = `glass-card rounded-xl p-4 flex flex-col justify-between transition-all hover:border-purple-500/50`;
         
         const isFlipkart = (p.site || '').toLowerCase() === 'flipkart';
         const badgeColor = isFlipkart ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' : 'bg-amber-500/20 text-amber-300 border-amber-500/30';
@@ -477,7 +718,7 @@
               <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${badgeColor}">
                 ${p.site}
               </span>
-              ${isWinner ? '<span class="text-[10px] font-bold text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800">★ TOP PICK</span>' : ''}
+              ${p.discount_pct && p.discount_pct > 0 ? `<span class="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">${p.discount_pct}% OFF</span>` : ''}
             </div>
             <a href="${validUrl}" target="_blank" rel="noopener noreferrer" class="hover:text-purple-300 transition block">
               <h4 class="text-sm font-semibold text-white line-clamp-2 mb-2" title="${p.title}">
@@ -519,12 +760,10 @@
       notif.classList.remove('hidden');
       notif.innerHTML = `✅ Tab opened! If your browser blocked it, <a href="${targetUrl}" target="_blank" class="underline font-bold text-teal-300">Click Here to Open Directly</a>`;
 
-      // Guarantee opening in browser
       try {
         window.open(targetUrl, '_blank');
       } catch (err) {}
 
-      // Also trigger backend launch
       fetch('/api/launch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -534,6 +773,113 @@
           title: currentWinnerTitle
         })
       }).catch(() => {});
+    }
+
+    // Ask Gemini AI Drawer
+    function toggleAskDrawer() {
+      const drawer = document.getElementById('ask-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function askPreset(q) {
+      document.getElementById('ask-input').value = q;
+      submitAsk();
+    }
+
+    async function submitAsk() {
+      const question = document.getElementById('ask-input').value.trim();
+      if (!question || !currentWinnerProduct) return;
+
+      const btn = document.getElementById('ask-submit-btn');
+      const resBox = document.getElementById('ask-response-box');
+
+      btn.disabled = true;
+      btn.innerText = "Thinking...";
+      resBox.classList.remove('hidden');
+      resBox.innerText = "Consulting Gemini 3.6 Flash about this product...";
+
+      try {
+        const res = await fetch('/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product: currentWinnerProduct,
+            question: question
+          })
+        });
+        const data = await res.json();
+        resBox.innerText = data.answer || "Gemini could not process this question.";
+      } catch (e) {
+        resBox.innerText = "Error reaching Gemini shopping advisor.";
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Ask</span><i data-lucide="send" class="w-3 h-3"></i>';
+        lucide.createIcons();
+      }
+    }
+
+    // Watchlist Logic
+    async function addCurrentToWatchlist() {
+      if (!currentWinnerProduct) return;
+      const btnText = document.getElementById('track-btn-text');
+      btnText.innerText = "Tracking...";
+
+      try {
+        const res = await fetch('/api/watchlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product: currentWinnerProduct,
+            target_price: Math.round((currentWinnerProduct.price || 0) * 0.9)
+          })
+        });
+        const data = await res.json();
+        btnText.innerText = "✓ Tracked!";
+        loadStats();
+      } catch (e) {
+        btnText.innerText = "Error";
+      }
+    }
+
+    async function toggleWatchlistModal() {
+      const modal = document.getElementById('watchlist-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        loadWatchlistItems();
+      }
+    }
+
+    async function loadWatchlistItems() {
+      const container = document.getElementById('watchlist-items-container');
+      container.innerHTML = '<div class="text-xs text-slate-500">Loading saved items...</div>';
+      try {
+        const res = await fetch('/api/watchlist');
+        const data = await res.json();
+        const items = data.watchlist || [];
+
+        if (items.length === 0) {
+          container.innerHTML = '<div class="text-xs text-slate-500 py-4 text-center">Your watchlist is currently empty. Click "Track Price" on any deal to save it!</div>';
+          return;
+        }
+
+        container.innerHTML = '';
+        items.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'p-3 rounded-lg bg-slate-950/80 border border-slate-800 flex items-center justify-between text-xs';
+          div.innerHTML = `
+            <div class="pr-2">
+              <div class="font-semibold text-white line-clamp-1">${item.title}</div>
+              <div class="text-[11px] text-slate-400">Current: Rs. ${Math.round(item.price)} • Target: <span class="text-emerald-400 font-bold">Rs. ${Math.round(item.target_price)}</span></div>
+            </div>
+            <a href="${getValidUrl(item.url, item.site, item.title)}" target="_blank" class="px-2.5 py-1 bg-purple-600 hover:bg-purple-500 text-white rounded font-medium text-[11px] flex items-center space-x-1">
+              <span>View</span>
+            </a>
+          `;
+          container.appendChild(div);
+        });
+      } catch (e) {
+        container.innerHTML = '<div class="text-xs text-red-400">Error loading watchlist.</div>';
+      }
     }
   </script>
 </body>
