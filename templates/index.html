@@ -518,14 +518,52 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 glass-card mt-12">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <div>SmartCart AI Agent • Built for SLAB Hackathon</div>
-      <div class="flex items-center space-x-4">
-        <span>Powered by <span class="text-purple-400 font-semibold">Webcmd</span> & <span class="text-indigo-400 font-semibold">Google Gemini</span></span>
-        <span>•</span>
-        <span>Localhost:8080</span>
+  <!-- Footer & Author Card -->
+  <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-400 glass-card mt-16 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <!-- Left: Project Info -->
+      <div class="text-left">
+        <div class="flex items-center space-x-2 mb-1">
+          <span class="font-extrabold text-sm text-white tracking-tight">SmartCart<span class="text-purple-400">.AI</span></span>
+          <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">SLAB Hackathon 2026</span>
+        </div>
+        <p class="text-slate-500 text-[11px]">Powered by <span class="text-purple-400 font-semibold">Webcmd</span> & <span class="text-indigo-400 font-semibold">Google Gemini</span></p>
+      </div>
+
+      <!-- Center / Author Profile Badge -->
+      <div class="glass-card px-5 py-3 rounded-2xl border border-purple-500/30 shadow-lg shadow-purple-950/40 flex items-center space-x-4">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center text-white text-lg font-bold shadow-md shadow-purple-500/40 border border-purple-300/30">
+          👨‍💻
+        </div>
+        <div class="text-left">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] uppercase tracking-widest font-extrabold text-purple-400">Project Author</span>
+          </div>
+          <div class="font-bold text-sm text-white hover:text-purple-300 transition">Manish Kumar Rathore</div>
+          <div class="flex items-center gap-3 mt-1 text-[11px]">
+            <a href="https://github.com/Manishrathore07" target="_blank" class="text-slate-400 hover:text-white flex items-center space-x-1 transition">
+              <i data-lucide="github" class="w-3 h-3 text-purple-400"></i>
+              <span>@Manishrathore07</span>
+            </a>
+            <span class="text-slate-600">•</span>
+            <a href="https://instagram.com/manish_rathore._" target="_blank" class="text-slate-400 hover:text-pink-400 flex items-center space-x-1 transition">
+              <i data-lucide="instagram" class="w-3 h-3 text-pink-400"></i>
+              <span>@manish_rathore._</span>
+            </a>
+            <span class="text-slate-600">•</span>
+            <a href="mailto:manishkumarrathore0711@gmail.com" class="text-slate-400 hover:text-amber-400 flex items-center space-x-1 transition">
+              <i data-lucide="mail" class="w-3 h-3 text-amber-400"></i>
+              <span>Email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Port Status -->
+      <div class="text-right text-slate-500 text-[11px]">
+        <div>Autonomous Browser Agent</div>
+        <div class="text-purple-400 font-mono">http://localhost:3000</div>
       </div>
     </div>
   </footer>

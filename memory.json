@@ -237,13 +237,27 @@
       "total_products_found": 2,
       "winner_site": "amazon",
       "winner_price": 229.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-13T14:17:06.660803",
+      "total_products_found": 2,
+      "winner_site": "amazon",
+      "winner_price": 259.0
+    },
+    {
+      "query": "wireless mouse under 1000",
+      "timestamp": "2026-09-13T18:04:27.389413",
+      "total_products_found": 4,
+      "winner_site": "amazon",
+      "winner_price": 259.0
     }
   ],
   "learned_workflows": {},
   "price_history": {},
   "stats": {
-    "total_searches": 34,
-    "money_saved": 469467.0
+    "total_searches": 36,
+    "money_saved": 469907.0
   },
   "watchlist": [
     {

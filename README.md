@@ -149,6 +149,15 @@ smartcart-agent/
 
 ---
 
+## 👨‍💻 Author
+
+### **Manish Kumar Rathore**
+- **GitHub**: [@Manishrathore07](https://github.com/Manishrathore07)
+- **Instagram**: [@manish_rathore._](https://instagram.com/manish_rathore._)
+- **Email**: [manishkumarrathore0711@gmail.com](mailto:manishkumarrathore0711@gmail.com)
+
+---
+
 ## 📄 License
 
 MIT License — Built for the SLAB Hackathon 2026.
