@@ -23,31 +23,110 @@
   </script>
   <style>
     body {
-      background-color: #0B0F19;
-      background-image: radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.15) 0px, transparent 50%),
-                        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.12) 0px, transparent 50%);
-      background-attachment: fixed;
+      background-color: #070B14;
+      overflow-x: hidden;
+      perspective: 1200px;
     }
+    
+    /* 3D Dynamic Space Grid */
+    #bg-canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #bg-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .perspective-stage {
+      perspective: 1000px;
+    }
+
+    /* 3D Hologram Glows */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.35;
+      mix-blend-mode: screen;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+    .orb-1 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(139,92,246,0.6) 0%, rgba(99,102,241,0) 70%);
+      top: -10%;
+      left: -5%;
+    }
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59,130,246,0.5) 0%, rgba(16,185,129,0) 70%);
+      bottom: 5%;
+      right: -8%;
+      animation-duration: 22s;
+      animation-direction: alternate-reverse;
+    }
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(236,72,153,0.4) 0%, rgba(124,58,237,0) 70%);
+      top: 40%;
+      left: 35%;
+      animation-duration: 15s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate3d(60px, -40px, 80px) scale(1.15) rotate(45deg); }
+      100% { transform: translate3d(-50px, 50px, -40px) scale(0.9) rotate(-30deg); }
+    }
+
     .glass-card {
-      background: rgba(17, 24, 39, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
     }
+    .glass-card:hover {
+      border-color: rgba(168, 85, 247, 0.35);
+      box-shadow: 0 20px 40px -12px rgba(124, 58, 237, 0.25);
+    }
+    
     .glass-card-winner {
-      background: linear-gradient(135deg, rgba(30, 27, 75, 0.85) 0%, rgba(17, 24, 39, 0.95) 100%);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(139, 92, 246, 0.4);
-      box-shadow: 0 0 35px -5px rgba(124, 58, 237, 0.25);
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.88) 0%, rgba(15, 23, 42, 0.95) 100%);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      box-shadow: 0 15px 45px -5px rgba(124, 58, 237, 0.35), 0 0 25px 2px rgba(99, 102, 241, 0.2);
+      transform-style: preserve-3d;
     }
     .gradient-text {
-      background: linear-gradient(135deg, #A78BFA 0%, #60A5FA 50%, #34D399 100%);
+      background: linear-gradient(135deg, #C084FC 0%, #60A5FA 50%, #34D399 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
   </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white">
+<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white relative">
+
+  <!-- Interactive 3D Cyber Motion Background -->
+  <div id="bg-canvas-container">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <canvas id="bg-canvas"></canvas>
+  </div>
 
   <!-- Navigation -->
   <header class="border-b border-slate-800/80 sticky top-0 z-50 glass-card">
@@ -881,6 +960,194 @@
         container.innerHTML = '<div class="text-xs text-red-400">Error loading watchlist.</div>';
       }
     }
+
+    // ==========================================
+    // 3D MOTION BACKGROUND & PARALLAX ENGINE
+    // ==========================================
+    (function init3DMotion() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      // Mouse interactive coordinates with smooth lerp
+      let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
+      window.addEventListener('mousemove', (e) => {
+        mouse.targetX = e.clientX;
+        mouse.targetY = e.clientY;
+      });
+
+      // 3D Particles in a virtual sphere / volume
+      const PARTICLE_COUNT = 90;
+      const particles = [];
+      const fov = 350; // Field of view for 3D projection
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: (Math.random() - 0.5) * 1600,
+          y: (Math.random() - 0.5) * 1200,
+          z: Math.random() * 1200 + 100, // Z depth
+          radius: Math.random() * 2.2 + 0.8,
+          baseColor: Math.random() > 0.4 ? 'rgba(168, 85, 247,' : (Math.random() > 0.5 ? 'rgba(96, 165, 250,' : 'rgba(52, 211, 153,'),
+          speedZ: Math.random() * 1.2 + 0.4,
+          rotSpeed: (Math.random() - 0.5) * 0.002
+        });
+      }
+
+      // Dynamic 3D Grid Wave Points
+      const gridCols = 18;
+      const gridRows = 14;
+      const gridPoints = [];
+      for (let r = 0; r < gridRows; r++) {
+        gridPoints[r] = [];
+        for (let c = 0; c < gridCols; c++) {
+          gridPoints[r][c] = {
+            baseX: (c / (gridCols - 1) - 0.5) * 2000,
+            baseY: (r / (gridRows - 1) - 0.5) * 1400 + 350,
+            baseZ: (r / gridRows) * 800 + 200,
+            phase: Math.random() * Math.PI * 2
+          };
+        }
+      }
+
+      let time = 0;
+
+      function render() {
+        time += 0.015;
+        // Smooth mouse dampening
+        mouse.x += (mouse.targetX - mouse.x) * 0.05;
+        mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+        const tiltX = (mouse.x - width / 2) * 0.0006;
+        const tiltY = (mouse.y - height / 2) * 0.0006;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // 1. Draw 3D Perspective Cyber Horizon Grid
+        ctx.lineWidth = 0.7;
+        for (let r = 0; r < gridRows; r++) {
+          ctx.beginPath();
+          let started = false;
+
+          for (let c = 0; c < gridCols; c++) {
+            const pt = gridPoints[r][c];
+            // 3D Wave ripple
+            const wave = Math.sin(time * 2 + pt.baseX * 0.003 + pt.baseZ * 0.004) * 45;
+            
+            // 3D rotation and projection
+            let px = pt.baseX * Math.cos(tiltX) - pt.baseZ * Math.sin(tiltX);
+            let pz = pt.baseX * Math.sin(tiltX) + pt.baseZ * Math.cos(tiltX);
+            let py = pt.baseY + wave - tiltY * 300;
+
+            if (pz + fov <= 0) continue;
+            const scale = fov / (fov + pz);
+            const sx = width / 2 + px * scale;
+            const sy = height / 2 + py * scale;
+
+            if (!started) {
+              ctx.moveTo(sx, sy);
+              started = true;
+            } else {
+              ctx.lineTo(sx, sy);
+            }
+          }
+          const alpha = Math.max(0, 0.12 - (r / gridRows) * 0.08);
+          ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+          ctx.stroke();
+        }
+
+        // 2. Draw 3D Floating Particles & Constellations
+        const projectedParticles = [];
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+
+          // Move forward in 3D space
+          p.z -= p.speedZ;
+          if (p.z < 10) {
+            p.z = 1200;
+            p.x = (Math.random() - 0.5) * 1600;
+            p.y = (Math.random() - 0.5) * 1200;
+          }
+
+          // Apply rotation with mouse parallax
+          const cosR = Math.cos(tiltX);
+          const sinR = Math.sin(tiltX);
+          const px = p.x * cosR - p.z * sinR;
+          const pz = p.x * sinR + p.z * cosR;
+          const py = p.y - tiltY * 400;
+
+          if (pz + fov <= 0) continue;
+          const scale = fov / (fov + pz);
+          const sx = width / 2 + px * scale;
+          const sy = height / 2 + py * scale;
+          const depthAlpha = Math.min(1, Math.max(0.1, (1200 - pz) / 1000));
+
+          projectedParticles.push({ sx, sy, scale, depthAlpha, color: p.baseColor, radius: p.radius });
+
+          // Render glowing particle
+          ctx.beginPath();
+          ctx.arc(sx, sy, Math.max(0.5, p.radius * scale), 0, Math.PI * 2);
+          ctx.fillStyle = `${p.baseColor} ${depthAlpha * 0.8})`;
+          ctx.shadowBlur = 12 * scale;
+          ctx.shadowColor = 'rgba(168, 85, 247, 0.7)';
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        // Draw connective light nodes between nearby particles for constellation effect
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < projectedParticles.length; i++) {
+          for (let j = i + 1; j < projectedParticles.length; j++) {
+            const dx = projectedParticles[i].sx - projectedParticles[j].sx;
+            const dy = projectedParticles[i].sy - projectedParticles[j].sy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 90) {
+              const lineAlpha = (1 - dist / 90) * 0.22 * projectedParticles[i].depthAlpha;
+              ctx.strokeStyle = `rgba(147, 197, 253, ${lineAlpha})`;
+              ctx.beginPath();
+              ctx.moveTo(projectedParticles[i].sx, projectedParticles[i].sy);
+              ctx.lineTo(projectedParticles[j].sx, projectedParticles[j].sy);
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      requestAnimationFrame(render);
+    })();
+
+    // 3D Card Tilt Interaction on Hover
+    document.addEventListener('mousemove', (e) => {
+      const cards = document.querySelectorAll('.glass-card-winner, #battle-card, .product-card');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom
+        ) {
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          const tiltX = (y / (rect.height / 2)) * -6;
+          const tiltY = (x / (rect.width / 2)) * 6;
+          card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
+        } else {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        }
+      });
+    });
   </script>
 </body>
 </html>
